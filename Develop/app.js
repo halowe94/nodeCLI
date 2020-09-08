@@ -65,20 +65,16 @@ const managerQuestions = [
 ];
 
 function init() {
-    inquirer.prompt(employeeQuestions);
+    inquirer.prompt(employeeQuestions)
+        .then(function answers() {
+            if (employeeQuestions.role == "Engineer") {
+                inquirer.prompt(engineerQuestions);
+            }
+        
+        }
+    )
 };
 init();
-
-// init.then(function engineerFunc() {
-//     if (err) {
-//         throw err
-//     }
-//     else {
-//         (role == "Engineer") {
-//             inquirer.prompt(engineerQuestions);
-//         }
-//     }
-// });
 
 
 // After the user has input all employees desired, call the `render` function (required

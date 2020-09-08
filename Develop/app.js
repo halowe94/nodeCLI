@@ -29,6 +29,11 @@ const employeeQuestions = [
         type: "input",
         name: "email",
         message: "What is the employee's email?"
+    },
+    {
+        type: "input",
+        name: "role",
+        message: "What is the employee's role?"
     }
 ];
 
@@ -62,7 +67,18 @@ const managerQuestions = [
 function init() {
     inquirer.prompt(employeeQuestions);
 };
+init();
 
+// init.then(function engineerFunc() {
+//     if (err) {
+//         throw err
+//     }
+//     else {
+//         (role == "Engineer") {
+//             inquirer.prompt(engineerQuestions);
+//         }
+//     }
+// });
 
 
 // After the user has input all employees desired, call the `render` function (required

@@ -66,8 +66,8 @@ const managerQuestions = [
 
 function init() {
     inquirer.prompt(employeeQuestions)
-        .then(function answers() {
-            if (employeeQuestions.role == "Engineer") {
+        .then(function(answers) {
+            if (answers.role == "Engineer") {
                 inquirer.prompt(engineerQuestions);
             }
         

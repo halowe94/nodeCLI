@@ -90,13 +90,12 @@ function init() {
                     break;
             }
 
-        }.then(function () {
+        }).then(function () {
             inquirer.prompt(addEmployee);
             if (addEmployee === "yes") {
                 inquirer.prompt(employeeQuestions);
             }
         })
-    )
 };
 
 init();

@@ -42,7 +42,7 @@ const engineerQuestions = [
     {
         type: "input",
         name: "githubUser",
-        message: "What is your github username?"
+        message: "What is the employee's github username?"
     }
 ];
 
@@ -51,7 +51,7 @@ const internQuestions = [
     {
         type: "input",
         name: "school",
-        message: "What is the name of your school?"
+        message: "What is the employee's school?"
     }
 ];
 
@@ -67,14 +67,29 @@ const managerQuestions = [
 function init() {
     inquirer.prompt(employeeQuestions)
         .then(function(answers) {
-            if (answers.role == "Engineer") {
-                inquirer.prompt(engineerQuestions);
+
+            switch (answers.role) {
+                case "Engineer":
+                    inquirer.prompt(engineerQuestions)
+                    break;
+                case "Manager":
+                    inquirer.prompt(managerQuestions)
+                    break;
+                case "Intern":
+                    inquirer.prompt(internQuestions)
+                    break;
             }
-        
         }
     )
 };
 init();
+
+// function(answers) {
+//     if (answers.role == "Engineer") {
+//         inquirer.prompt(engineerQuestions);
+//     }
+
+// }
 
 
 // After the user has input all employees desired, call the `render` function (required

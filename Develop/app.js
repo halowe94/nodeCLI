@@ -31,9 +31,10 @@ const employeeQuestions = [
         message: "What is the employee's email?"
     },
     {
-        type: "input",
+        type: "list",
         name: "role",
-        message: "What is the employee's role?"
+        message: "What is the employee's role?",
+        choices: ["Engineer", "Intern", "Manager"]
     }
 ];
 
@@ -64,9 +65,18 @@ const managerQuestions = [
     }
 ];
 
+const addEmployee = [
+    {
+        type: "list",
+        name: "anotherEmployee",
+        message: "Would you like to add another employee?",
+        choices: ['yes', 'no']
+    }
+]
+
 function init() {
     inquirer.prompt(employeeQuestions)
-        .then(function(answers) {
+        .then(function (answers) {
 
             switch (answers.role) {
                 case "Engineer":
@@ -79,17 +89,17 @@ function init() {
                     inquirer.prompt(internQuestions)
                     break;
             }
-        }
+
+        }.then(function () {
+            inquirer.prompt(addEmployee);
+            if (addEmployee === "yes") {
+                inquirer.prompt(employeeQuestions);
+            }
+        })
     )
 };
+
 init();
-
-// function(answers) {
-//     if (answers.role == "Engineer") {
-//         inquirer.prompt(engineerQuestions);
-//     }
-
-// }
 
 
 // After the user has input all employees desired, call the `render` function (required
@@ -125,3 +135,15 @@ init();
 //in order to create a loop, we have to ask if the user would like to create a new employee once they're done
 //once all employees have been created, we invoke the render function and pass in the storage array
 //render(storageArray);
+
+let newInterns = [];
+let newManagers = [];
+let newEngineers = [];
+
+// let person = new Manager(name, id, email, officeNumber);
+// console.log(person);
+// let person2 = new Engineer(name, id, email, github);
+// console.log(person2);
+// let person3 = new Intern(name, id, email, school);
+// console.log(person3);
+

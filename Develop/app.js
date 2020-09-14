@@ -75,7 +75,7 @@ const addEmployee = [
 ]
 
 function init() {
-    inquirer.prompt(employeeQuestions)
+    inquirer.prompt(employeeQuestions) 
         .then(function (answers) {
 
             switch (answers.role) {
@@ -88,17 +88,22 @@ function init() {
                 case "Intern":
                     inquirer.prompt(internQuestions)
                     break;
-            }
+            };
 
-        }).then(function () {
-            inquirer.prompt(addEmployee);
-            if (addEmployee === "yes") {
-                inquirer.prompt(employeeQuestions);
-            }
-        })
+        });
+    // then(function () {
+    //     inquirer.prompt(addEmployee);
+    //     let continuePrompt = addEmployee.choices;
+
+    //     if (continuePrompt === yes) {
+    //         inquirer.prompt(employeeQuestions);
+    //     }
+    // }
 };
 
 init();
+
+
 
 
 // After the user has input all employees desired, call the `render` function (required
@@ -135,14 +140,17 @@ init();
 //once all employees have been created, we invoke the render function and pass in the storage array
 //render(storageArray);
 
-let newInterns = [];
-let newManagers = [];
-let newEngineers = [];
+let newInternsArray = [];
+let newManagersArray = [];
+let newEngineersArray = [];
 
-// let person = new Manager(name, id, email, officeNumber);
-// console.log(person);
-// let person2 = new Engineer(name, id, email, github);
-// console.log(person2);
-// let person3 = new Intern(name, id, email, school);
-// console.log(person3);
+ let newIntern = new Intern(name, id, email, school);
+ let newManager = new Manager(name, id, email, officeNumber);
+ let newEngineer = new Engineer(name, id, email, github);
+
+// console.log(newIntern);
+
+// function pushArrays() {
+//     if 
+// }
 

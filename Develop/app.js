@@ -42,7 +42,7 @@ const engineerQuestions = [
 
     {
         type: "input",
-        name: "githubUser",
+        name: "github",
         message: "What is the employee's github username?"
     }
 ];
@@ -77,13 +77,23 @@ const addEmployee = [
 function init() {
     inquirer.prompt(employeeQuestions) 
         .then(function (answers) {
-
+           
             switch (answers.role) {
                 case "Engineer":
                     inquirer.prompt(engineerQuestions)
+                    .then(function (engAnswers) {
+                        let newEngineer = new Engineer(answers.name, answers.id, answers.email, engAnswers.github);
+                        newEngineersArray.push(newEngineer);
+                        console.log(newEngineer);
+                    });
                     break;
                 case "Manager":
                     inquirer.prompt(managerQuestions)
+                    .then(function (manAnswers) {
+                        let newManager = new Engineer(answers.name, answers.id, answers.email, manAnswers.officeNumber);
+                        newManagersArray.push(newManager);
+                        console.log(newEngineer);
+                    });
                     break;
                 case "Intern":
                     inquirer.prompt(internQuestions)
@@ -144,9 +154,9 @@ let newInternsArray = [];
 let newManagersArray = [];
 let newEngineersArray = [];
 
- let newIntern = new Intern(name, id, email, school);
- let newManager = new Manager(name, id, email, officeNumber);
- let newEngineer = new Engineer(name, id, email, github);
+//  let newIntern = new Intern(name, id, email, school);
+//  let newManager = new Manager(name, id, email, officeNumber);
+
 
 // console.log(newIntern);
 

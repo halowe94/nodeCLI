@@ -97,6 +97,11 @@ function init() {
                     break;
                 case "Intern":
                     inquirer.prompt(internQuestions)
+                    .then(function (intAnswers) {
+                        let newIntern = new Intern(answers.name, answers.id, answers.email, intAnswers.school);
+                        newInternsArray.push(newIntern);
+                        console.log(newIntern);
+                    })
                     break;
             };
 

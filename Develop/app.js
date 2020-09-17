@@ -103,17 +103,10 @@ function init() {
                         console.log(newIntern);
                     })
                     break;
-            };
+            }
 
         });
-    // then(function () {
-    //     inquirer.prompt(addEmployee);
-    //     let continuePrompt = addEmployee.choices;
-
-    //     if (continuePrompt === yes) {
-    //         inquirer.prompt(employeeQuestions);
-    //     }
-    // }
+  
 };
 
 init();

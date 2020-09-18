@@ -105,6 +105,10 @@ function init() {
                     break;
             }
 
+
+        }).then(function(contPrompts){
+            inquirer.prompt(addEmployee)
+
         });
   
 };
@@ -152,13 +156,5 @@ let newInternsArray = [];
 let newManagersArray = [];
 let newEngineersArray = [];
 
-//  let newIntern = new Intern(name, id, email, school);
-//  let newManager = new Manager(name, id, email, officeNumber);
 
-
-// console.log(newIntern);
-
-// function pushArrays() {
-//     if 
-// }
 

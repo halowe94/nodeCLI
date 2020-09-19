@@ -13,28 +13,32 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-
-const employeeQuestions = [
+const managerQuestions = [
     {
         type: "input",
         name: "name",
-        message: "What is the employee's name?"
+        message: "What is the manager's name?"
     },
     {
         type: "input",
         name: "id",
-        message: "What is the employee's id?"
+        message: "What is the manager's id?"
     },
     {
         type: "input",
         name: "email",
-        message: "What is the employee's email?"
+        message: "What is the manager's email?"
+    },
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "What is the manager's office number?"
     },
     {
         type: "list",
         name: "role",
-        message: "What is the employee's role?",
-        choices: ["Engineer", "Intern", "Manager"]
+        message: "Would you like to add an engineer or and intern?",
+        choices: ["Engineer", "Intern"]
     }
 ];
 
@@ -42,8 +46,35 @@ const engineerQuestions = [
 
     {
         type: "input",
+        name: "name",
+        message: "What is the engineer's name?"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What is the engineer's id?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the engineer's email?"
+    },
+    {
+        type: "input",
         name: "github",
-        message: "What is the employee's github username?"
+        message: "What is the engineer's github username?"
+    },
+    {
+        type: "list",
+        name: "anotherEmployee",
+        message: "Would you like to add another employee?",
+        choices: ['yes', 'no']
+    },
+    {
+        type: "list",
+        name: "role",
+        message: "Would you like to add an engineer or and intern?",
+        choices: ["Engineer", "Intern"]
     }
 ];
 
@@ -51,66 +82,67 @@ const internQuestions = [
 
     {
         type: "input",
-        name: "school",
-        message: "What is the employee's school?"
-    }
-];
-
-const managerQuestions = [
-
+        name: "name",
+        message: "What is the intern's name?"
+    },
     {
         type: "input",
-        name: "officeNumber",
-        message: "What is your office number?"
-    }
-];
-
-const addEmployee = [
+        name: "id",
+        message: "What is the interns's id?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the intern's email?"
+    },
+    {
+        type: "input",
+        name: "school",
+        message: "What is the interns's school?"
+    },
     {
         type: "list",
         name: "anotherEmployee",
         message: "Would you like to add another employee?",
         choices: ['yes', 'no']
+    },
+    {
+        type: "list",
+        name: "role",
+        message: "Would you like to add an engineer or and intern?",
+        choices: ["Engineer", "Intern"]
     }
-]
+];
 
 function init() {
-    inquirer.prompt(employeeQuestions) 
+    inquirer.prompt(managerQuestions)
         .then(function (answers) {
-           
+            let newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+            newManagersArray.push(newManager);
+            console.log(newManager);
+
             switch (answers.role) {
                 case "Engineer":
                     inquirer.prompt(engineerQuestions)
-                    .then(function (engAnswers) {
-                        let newEngineer = new Engineer(answers.name, answers.id, answers.email, engAnswers.github);
-                        newEngineersArray.push(newEngineer);
-                        console.log(newEngineer);
-                    });
-                    break;
-                case "Manager":
-                    inquirer.prompt(managerQuestions)
-                    .then(function (manAnswers) {
-                        let newManager = new Engineer(answers.name, answers.id, answers.email, manAnswers.officeNumber);
-                        newManagersArray.push(newManager);
-                        console.log(newEngineer);
-                    });
+                        .then(function (engAnswers) {
+                            let newEngineer = new Engineer(engAnswers.name, engAnswers.id, engAnswers.email, engAnswers.github);
+                            newEngineersArray.push(newEngineer);
+                            console.log(newEngineer);
+                        });
                     break;
                 case "Intern":
                     inquirer.prompt(internQuestions)
-                    .then(function (intAnswers) {
-                        let newIntern = new Intern(answers.name, answers.id, answers.email, intAnswers.school);
-                        newInternsArray.push(newIntern);
-                        console.log(newIntern);
-                    })
+                        .then(function (intAnswers) {
+                            let newIntern = new Intern(intAnswers.name, intAnswers.id, intAnswers.email, intAnswers.school);
+                            newInternsArray.push(newIntern);
+                            console.log(newIntern);
+                        })
                     break;
             }
 
 
-        }).then(function(contPrompts){
-            inquirer.prompt(addEmployee)
-
         });
-  
+
 };
 
 init();

@@ -13,6 +13,7 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+<<<<<<< HEAD
 
 const startQ = [
     {
@@ -27,6 +28,9 @@ const startQ = [
 
 const managerQuestions = [
 
+=======
+const managerQuestions = [
+>>>>>>> a351bba3cebdffa2f6206cff344d1e334040989c
     {
         type: "input",
         name: "name",
@@ -45,18 +49,43 @@ const managerQuestions = [
     {
         type: "input",
         name: "officeNumber",
+<<<<<<< HEAD
         message: "What is your office number?"
+=======
+        message: "What is the manager's office number?"
+>>>>>>> a351bba3cebdffa2f6206cff344d1e334040989c
     },
     {
         type: "list",
         name: "role",
+<<<<<<< HEAD
         message: "Would you like to add an Engineer or an Intern?",
         choices: ["Engineer", "Intern"]
     },
 
+=======
+        message: "Would you like to add an engineer or and intern?",
+        choices: ["Engineer", "Intern"]
+    }
+>>>>>>> a351bba3cebdffa2f6206cff344d1e334040989c
 ];
 
 const engineerQuestions = [
+    {
+        type: "input",
+        name: "id",
+        message: "What is the engineer's id?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the engineer's email?"
+    },
+    {
+        type: "input",
+        name: "name",
+        message: "What is the engineer's name?"
+    },
     {
         type: "input",
         name: "id",
@@ -108,6 +137,12 @@ const internQuestions = [
         name: "anotherEmployee",
         message: "Would you like to add another employee?",
         choices: ['yes', 'no']
+    },
+    {
+        type: "list",
+        name: "role",
+        message: "Would you like to add an engineer or and intern?",
+        choices: ["Engineer", "Intern"]
     }
 ];
 

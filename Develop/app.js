@@ -14,45 +14,14 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-const employeeQuestions = [
-    {
-        type: "input",
-        name: "name",
-        message: "What is the employee's name?"
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "What is the employee's id?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is the employee's email?"
-    },
+const startQ = [
     {
         type: "list",
-        name: "role",
-        message: "What is the employee's role?",
-        choices: ["Engineer", "Intern", "Manager"]
-    }
-];
+        name: "begin",
+        message: "Would you like to create a new team?",
+        choices: ['yes', 'no']
 
-const engineerQuestions = [
 
-    {
-        type: "input",
-        name: "github",
-        message: "What is the employee's github username?"
-    }
-];
-
-const internQuestions = [
-
-    {
-        type: "input",
-        name: "school",
-        message: "What is the employee's school?"
     }
 ];
 
@@ -60,60 +29,125 @@ const managerQuestions = [
 
     {
         type: "input",
+        name: "name",
+        message: "What is the manager's name?"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What is the manager's id?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the manager's email?"
+    },
+    {
+        type: "input",
         name: "officeNumber",
         message: "What is your office number?"
-    }
+    },
+    {
+        type: "list",
+        name: "role",
+        message: "Would you like to add an Engineer or an Intern?",
+        choices: ["Engineer", "Intern"]
+    },
+
 ];
 
-const addEmployee = [
+const engineerQuestions = [
+    {
+        type: "input",
+        name: "id",
+        message: "What is the engineer's id?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the engineer's email?"
+    },
+    {
+        type: "input",
+        name: "github",
+        message: "What is the engineer's github username?"
+    },
+    {
+        type: "list",
+        name: "anotherEmployee",
+        message: "Would you like to add another employee?",
+        choices: ['yes', 'no']
+    },
+    {
+        type: "list",
+        name: "role",
+        message: "Would you like to add an Engineer or an Intern?",
+        choices: ["Engineer", "Intern"]
+    }
+
+];
+
+const internQuestions = [
+    {
+        type: "input",
+        name: "id",
+        message: "What is the intern's id?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the intern's email?"
+    },
+    {
+        type: "input",
+        name: "school",
+        message: "What is the intern's school?"
+    },
     {
         type: "list",
         name: "anotherEmployee",
         message: "Would you like to add another employee?",
         choices: ['yes', 'no']
     }
-]
+];
 
 function init() {
-    inquirer.prompt(employeeQuestions) 
-        .then(function (answers) {
-           
-            switch (answers.role) {
-                case "Engineer":
-                    inquirer.prompt(engineerQuestions)
-                    .then(function (engAnswers) {
-                        let newEngineer = new Engineer(answers.name, answers.id, answers.email, engAnswers.github);
-                        newEngineersArray.push(newEngineer);
-                        console.log(newEngineer);
-                    });
-                    break;
-                case "Manager":
-                    inquirer.prompt(managerQuestions)
-                    .then(function (manAnswers) {
-                        let newManager = new Engineer(answers.name, answers.id, answers.email, manAnswers.officeNumber);
-                        newManagersArray.push(newManager);
-                        console.log(newEngineer);
-                    });
-                    break;
-                case "Intern":
-                    inquirer.prompt(internQuestions)
-                    .then(function (intAnswers) {
-                        let newIntern = new Intern(answers.name, answers.id, answers.email, intAnswers.school);
-                        newInternsArray.push(newIntern);
-                        console.log(newIntern);
-                    })
-                    break;
-            }
+    inquirer.prompt(startQ).then(function (startAnswer) {
+        if (startAnswer.begin === 'no') {
+            console.log('end application');
+        } else {
+            inquirer.prompt(managerQuestions)
+                .then(function (answers) {
+                    let newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+                    newTeamMembers.push(newManager);
+                    console.log(newManager);
 
-
-        }).then(function(contPrompts){
-            inquirer.prompt(addEmployee)
-
-        });
-  
+                    switch (answers.role) {
+                        case "Engineer":
+                            inquirer.prompt(engineerQuestions)
+                                .then(function (engAnswers) {
+                                    let newEngineer = new Engineer(engAnswers.name, engAnswers.id, engAnswers.email, engAnswers.github);
+                                    newTeamMembers.push(newEngineer);
+                                    console.log(newEngineer);
+                                });
+                            break;
+                        case "Intern":
+                            inquirer.prompt(internQuestions)
+                                .then(function (intAnswers) {
+                                    let newIntern = new Intern(answers.name, answers.id, answers.email, intAnswers.school);
+                                    newTeamMembers.push(newIntern);
+                                    console.log(newIntern);
+                                })
+                            break;
+                    }
+                })
+        };
+    })
 };
 
 init();
+
+
 
 
 
@@ -152,9 +186,16 @@ init();
 //once all employees have been created, we invoke the render function and pass in the storage array
 //render(storageArray);
 
-let newInternsArray = [];
-let newManagersArray = [];
-let newEngineersArray = [];
+newTeamMembers = [];
 
+function buildTeam() {
+    fs.writeFile('./index.html', render(newTeamMembers), 'utf8', function (err) {
+        if (err) {
+            throw err;
+        };
+        console.log('Finished writing file');
+    })
+};
 
+//buildTeam(newTeamMembers)
 

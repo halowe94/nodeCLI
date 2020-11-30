@@ -10,6 +10,10 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//const engineerPrompt = require('./engineerPrompt');
+//const internPrompt = require('./internPrompt');
+//const managerPrompt = require('./managerPrompt');
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -57,38 +61,38 @@ const managerQuestions = [
 ];
 
 const engineerQuestions = [
-    {
-        type: "input",
-        name: "id",
-        message: "What is the engineer's id?"
-    },
-    {
-        type: "input",
-        name: "name",
-        message: "What is the engineer's name?"
-    },
-    {
-        type: "input",
-        name: "email",
-        message: "What is the engineer's email?"
-    },
-    {
-        type: "input",
-        name: "github",
-        message: "What is the engineer's github username?"
-    },
-    {
-        type: "list",
-        name: "anotherEmployee",
-        message: "Would you like to add another employee?",
-        choices: ['yes', 'no']
-    },
-    {
-        type: "list",
-        name: "role",
-        message: "Would you like to add an Engineer or an Intern?",
-        choices: ["Engineer", "Intern"]
-    }
+  {
+      type: "input",
+      name: "id",
+      message: "What is the engineer's id?"
+  },
+  {
+      type: "input",
+      name: "name",
+      message: "What is the engineer's name?"
+  },
+  {
+      type: "input",
+      name: "email",
+      message: "What is the engineer's email?"
+  },
+  {
+      type: "input",
+      name: "github",
+      message: "What is the engineer's github username?"
+  },
+  {
+      type: "list",
+      name: "anotherEmployee",
+      message: "Would you like to add another employee?",
+      choices: ['yes', 'no']
+  },
+  {
+      type: "list",
+      name: "role",
+      message: "Would you like to add an Engineer or an Intern?",
+      choices: ["Engineer", "Intern"]
+  }
 
 ];
 
@@ -143,7 +147,7 @@ function init() {
                                     let newEngineer = new Engineer(engAnswers.name, engAnswers.id, engAnswers.email, engAnswers.github);
                                     newTeamMembers.push(newEngineer);
                                     console.log(newEngineer);
-                                    while (engAnswers.anotherEmployee === 'yes') {
+                                    if (engAnswers.anotherEmployee === 'yes') {
                                         inquirer.prompt(addEmployeeQ).then(function () {
                                         if (addEmployeeQ.role === 'Engineer') {
                                             inquirer.prompt(engineerQuestions);
@@ -180,10 +184,8 @@ function init() {
 
 init();
 
-
-
-
-
+// .then(function () {
+//     inquirer.prompt(addEmployeeQ);
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -207,7 +209,6 @@ init();
 
 //use new keyword to create an instance of that person
 
-
 //Initiate inquirer prompt to ask what employee type the user would like to create
 //based on the selection that the user has provided from inquierer's drop down,
 //we then initiate a follow up inquirer prompt specific to the questions needed to create that particular role
@@ -222,13 +223,12 @@ init();
 newTeamMembers = [];
 
 function buildTeam() {
-    fs.writeFile('./index.html', render(newTeamMembers), 'utf8', function (err) {
-        if (err) {
-            throw err;
-        };
-        console.log('Finished writing file');
-    })
-};
+  fs.writeFile("./index.html", render(newTeamMembers), "utf8", function (err) {
+    if (err) {
+      throw err;
+    }
+    console.log("Finished writing file");
+  });
+}
 
 //buildTeam(newTeamMembers)
-

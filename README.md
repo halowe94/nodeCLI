@@ -29,6 +29,8 @@ import inquirer
 
 To use this application you will have to install inquirer. The package prompts questions on the command line that will update information in the designated html.
 
+Demo: (https://drive.google.com/file/d/15FsBhSLIq1GH1TGGHvH5Q3h7xuj56VJs/view)
+
 ```
 
 ## Contributing
